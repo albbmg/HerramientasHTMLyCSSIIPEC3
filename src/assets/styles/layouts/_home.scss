@@ -1,57 +1,136 @@
+/// Estilos generales
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.main-title {
+  @apply text-primary-color mb-10 text-7xl text-center font-bold;
+}
+.secondary-title {
+  @apply text-primary-color mb-10 text-4xl text-center;
+}
+
+// Estilos generales secciones
+.header {
+  .nav-link {
+    @apply text-secondary-color text-base rounded-sm;
+
+    &:hover {
+      @apply text-secondary-color bg-contrast-color;
+    }
+  }
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  padding: 0; 
   margin: 0;
-  padding: 2rem;
-  font-family: $font-family-sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: $uoc-bg;
-  color: $uoc-corporate;
+  overflow-x: hidden;
+  font-family: $primary-font;
 }
 
-.uoc-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-  border-radius: 2rem;
-  text-align: center;
-  background-color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+button {
+  font-family: $primary-font !important;
 }
 
-.uoc-logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1.5rem;
-  max-width: 200px;
-  height: auto;
+main, .header__inner, .footer__inner  {
+  padding-left: 2rem; 
+  padding-right: 2rem;
+  color: map-get($colors, primary-color); 
+  width: 90%; 
+  margin: 0 auto; 
+}
 
-  @media (min-width: $mqMinWidth) {
-    max-width: none;
+// Inicio
+@supports (display: grid) {
+  .chessboard__sup,
+  .chessboard__inf {
+    display: grid;
+    grid-template-columns: repeat(22, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    height: 80px;
+    margin: 0 auto;
+  }
+
+  .chessboard__sup .square:nth-child(odd),
+  .chessboard__inf .square:nth-child(even) {
+    background-color: #000;
   }
 }
 
-.uoc-title {
-  font-family: $font-family-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: $uoc-corporate;
+// Miembros
+  .member__container {
+    @apply flex flex-wrap gap-20 justify-center mt-large-space mb-large-space;
 
-  @media (min-width: $mqMinWidth) {
-    font-size: 36px;
+  .card {
+    @apply border-none rounded-images bg-card-bg-color text-primary-color overflow-hidden w-1/4 p-5 flex flex-col justify-between;
+
+    &__img {
+      @apply object-cover mb-6 mx-auto;
+    }
+    &__title {
+      @apply text-black text-left border-b-2 border-contrast-color pb-1 mb-6 text-2xl font-medium leading-tight inline-block font-bold;
+    }
   }
 }
 
-.uoc-footer {
-  margin-top: 1.5rem;
-  font-size: 0.75rem;
-  text-align: center;
+/* Para tablets */
+@supports (display: grid) {
+  @media (max-width: 1024px) {
+    .chessboard__sup,
+    .chessboard__inf {
+      grid-template-columns: repeat(10, 1fr);
+    }
+  }
 }
+
+/* Para móviles */
+@supports (display: grid) {
+  @media (max-width: 768px) {
+    .chessboard__sup,
+    .chessboard__inf {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}
+
+@media (max-width: 768px) { /* Móvil */
+  .card {
+    width: 100% !important;
+  }
+  .main-title {
+    @apply text-3xl
+  }
+  
+}
+
+/* Fallback para navegadores sin soporte para grid */
+@supports not (display: grid) {
+  .chessboard__sup,
+  .chessboard__inf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .square {
+    box-sizing: border-box;
+    width: 4%;
+    padding-bottom: 4%;
+    position: relative;
+  }
+
+  .square::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .square:nth-child(odd) {
+    background-color: #000;
+  }
+}
+
+
+
+
